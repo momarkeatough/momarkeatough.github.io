@@ -1,0 +1,67 @@
+/* dark background overlay for mountain videos and image lightbox */
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0,0,0);     /* fallback background when no opacity */
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #FFF;
+	z-index: 1100;
+	display: none;
+}
+
+.overlay-container {
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items:center;
+	justify-content:center;
+}
+
+.overlay-container iframe {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: none;
+}
+
+.overlay-container iframe {
+	width: 100%;
+	height: 100%;
+}
+
+.overlay-container img {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+}
+
+.overlay .icon[data-type="utility"].icon[data-value="cross"] {
+	position: relative;
+	top: 15px;
+	left: -15px;
+	color: #fff;
+	float: right;
+	z-index: 9999999999;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.overlay .close:hover {
+	text-decoration: underline;
+}
+
+.overlay .lightbox-container img {
+	vertical-align: middle;
+}
