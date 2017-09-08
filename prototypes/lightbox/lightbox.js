@@ -6,11 +6,12 @@ window.moprototype = window.moprototype || {};
 window.moprototype.imageLightbox = {
       
         overlayElement: null,
-        overlayElementContainer: null,
+        overlayLightboxContainer: null,
         
         init: function() {
             this.overlayElement = document.getElementById("base-overlay");
-            this.overlayElementContainer = document.getElementById("lightbox-container");
+            this.overlayContainer = document.getElementById("overlay-container");
+            this.overlayLightboxContainer = document.getElementById("lightbox-container");
             this.overlayCaptionContainer = document.getElementById("caption-container");
             this.lightboxImages = document.getElementsByClassName("inlineImageLarge");
             this.numberOfImages = this.lightboxImages.length;
