@@ -16,12 +16,8 @@ window.moprototype.imageLightbox = {
             this.lightboxImages = document.getElementsByClassName("inlineImageLarge");
             this.numberOfImages = this.lightboxImages.length;
             this.currentImageId = 0;
-            
-            if( document.getElementById("wxDescription") !== null ) {
-                document.getElementById("wxDescription").addEventListener("click", window.moprototype.imageLightbox.showLightbox);
-            }
-			
-			var leftNav = document.getElementById("leftNav");
+
+            var leftNav = document.getElementById("leftNav");
             var rightNav = document.getElementById("rightNav");
 
             // add navigation buttons if there is more than one image
@@ -33,18 +29,23 @@ window.moprototype.imageLightbox = {
                 document.getElementById("leftNav").style.display = "none";
                 document.getElementById("rightNav").style.display = "none";
             }
-            
-            // responsive swipe support
+
+            // responsive swipe support using hammer.js library
             var hammer = new Hammer(this.overlayElement);
 
-            hammer.on("swipeleft", function(ev) {
+            hammer.on("swipeleft", function() {
                 window.moprototype.imageLightbox.setPreviousImage();
             });
 
-            hammer.on("swiperight", function(ev) {
+            hammer.on("swiperight", function() {
                 window.moprototype.imageLightbox.setNextImage();
             });
             
+            // image click event listener for desktop
+            if( document.getElementById("wxDescription") !== null ) {
+                document.getElementById("wxDescription").addEventListener("click", window.moprototype.imageLightbox.showLightbox);
+            } 
+                        
         },
         
         showLightbox: function(e) {
@@ -65,7 +66,8 @@ window.moprototype.imageLightbox = {
                 // add event listeners for hiding the overlay and keyboard navigation of the lightbox
                 document.addEventListener("click", lightbox.hideOverlay);
                 // use keyup instead of keydown to prevent rapid transition of images
-                document.addEventListener("keyup", lightbox.handleKeyboardNavigation)
+                document.addEventListener("keyup", lightbox.handleKeyboardNavigation);
+
             }
         },
     
@@ -76,7 +78,7 @@ window.moprototype.imageLightbox = {
 
             // remove any existing image
             lightbox.overlayLightboxContainer.innerHTML = "";
-            lightbox.overlayLightboxContainer.innerHTML = "";
+            lightbox.overlayCaptionContainer.innerHTML = "";
             
             if(largeImageAnchor !== null) {
                 var enlargedImage = document.createElement("img");
@@ -97,9 +99,9 @@ window.moprototype.imageLightbox = {
             }
         },
 
-        hideOverlay: function() {
+        hideOverlay: function(e) {
             var lightbox = window.moprototype.imageLightbox;
-			
+
             // only hide the overlay when there is no event object (escape key pressed) or the navigation buttons are not clicked
             // this prevents clicking the nav buttons hiding the overlay
             if( typeof e === "undefined" || ! e.target.classList.contains("nav") ) {
