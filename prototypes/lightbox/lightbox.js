@@ -1,9 +1,9 @@
 /************************************
  * Lightbox functionality *
  ************************************/
-window.metoffice = window.metoffice || {};
+window.moprototype = window.moprototype || {};
 
-window.metoffice.imageLightbox = {
+window.moprototype.imageLightbox = {
       
         overlayElement: null,
         overlayElementContainer: null,
@@ -16,20 +16,32 @@ window.metoffice.imageLightbox = {
             this.numberOfImages = this.lightboxImages.length;
             this.currentImageId = 0;
             
-            // event listener for desktop
             if( document.getElementById("wxDescription") !== null ) {
-                document.getElementById("wxDescription").addEventListener("click", window.metoffice.imageLightbox.showLightbox);
-            } 
+                document.getElementById("wxDescription").addEventListener("click", window.moprototype.imageLightbox.showLightbox);
+            }
+			
+			var leftNav = document.getElementById("leftNav");
+            var rightNav = document.getElementById("rightNav");
+
+            // add navigation buttons if there is more than one image
+            if( window.moprototype.imageLightbox.numberOfImages > 1) {
+                leftNav.addEventListener("click", window.moprototype.imageLightbox.setPreviousImage);
+                rightNav.addEventListener("click", window.moprototype.imageLightbox.setNextImage);
+            }
+            else {
+                document.getElementById("leftNav").style.display = "none";
+                document.getElementById("rightNav").style.display = "none";
+            }
             
             // responsive swipe support
             var hammer = new Hammer(this.overlayElement);
 
             hammer.on("swipeleft", function(ev) {
-                window.metoffice.imageLightbox.setPreviousImage();
+                window.moprototype.imageLightbox.setPreviousImage();
             });
 
             hammer.on("swiperight", function(ev) {
-                window.metoffice.imageLightbox.setNextImage();
+                window.moprototype.imageLightbox.setNextImage();
             });
             
         },
@@ -37,7 +49,7 @@ window.metoffice.imageLightbox = {
         showLightbox: function(e) {
 
             if (e.target.nodeName === "IMG" && e.target.classList.contains("inlineImageSmall")) {
-                var lightbox = window.metoffice.imageLightbox;
+                var lightbox = window.moprototype.imageLightbox;
                 var imageId = e.target.getAttribute("data-lightbox-image-id");
                 
                 // prevent modal window from instantly closing and link from being followed
@@ -57,7 +69,7 @@ window.metoffice.imageLightbox = {
         },
     
         showImage: function(imageNumber) {
-            var lightbox = window.metoffice.imageLightbox;
+            var lightbox = window.moprototype.imageLightbox;
             var largeImageAnchor = document.querySelector("a[data-lightbox-image-id='" + imageNumber + "']");
             var inlineImage = document.querySelector("img[data-lightbox-image-id='" + imageNumber + "']");
 
@@ -85,18 +97,23 @@ window.metoffice.imageLightbox = {
         },
 
         hideOverlay: function() {
-            var lightbox = window.metoffice.imageLightbox;
-            lightbox.overlayElement.style.display = "none";
-            lightbox.overlayElementContainer.innerHTML = "";
-            lightbox.overlayCaptionContainer.innerHTML = "";
-            
-            // remove event listeners so they don't continue to work when they are not needed
-            document.removeEventListener("click", lightbox.hideOverlay);
-            document.removeEventListener("keyup", lightbox.handleKeyboardNavigation);
+            var lightbox = window.moprototype.imageLightbox;
+			
+            // only hide the overlay when there is no event object (escape key pressed) or the navigation buttons are not clicked
+            // this prevents clicking the nav buttons hiding the overlay
+            if( typeof e === "undefined" || ! e.target.classList.contains("nav") ) {
+                lightbox.overlayElement.style.display = "none";
+                lightbox.overlayLightboxContainer.innerHTML = "";
+                lightbox.overlayCaptionContainer.innerHTML = "";
+
+                // remove event listeners so they don't continue to work when they are not needed
+                document.removeEventListener("click", lightbox.hideOverlay);
+                document.removeEventListener("keyup", lightbox.handleKeyboardNavigation);
+            }
         },
     
         handleKeyboardNavigation: function(e) {
-            var lightbox = window.metoffice.imageLightbox;
+            var lightbox = window.moprototype.imageLightbox;
             switch (e.keyCode) {
                 // left
                 case 37:
@@ -120,7 +137,7 @@ window.metoffice.imageLightbox = {
         },
     
         setNextImage: function() {
-            var lightbox = window.metoffice.imageLightbox;
+            var lightbox = window.moprototype.imageLightbox;
             // handle max number of lightbox images being exceeded 
             if (lightbox.currentImageId >= lightbox.numberOfImages) {
                 lightbox.currentImageId = 1;
@@ -133,7 +150,7 @@ window.metoffice.imageLightbox = {
         },
     
         setPreviousImage: function() {
-            var lightbox = window.metoffice.imageLightbox;
+            var lightbox = window.moprototype.imageLightbox;
             // handle min number of lightbox images being exceeded 
             if (lightbox.currentImageId <= 1) {
                 lightbox.currentImageId = lightbox.numberOfImages;
@@ -148,5 +165,5 @@ window.metoffice.imageLightbox = {
 };
 
 window.addEventListener('DOMContentLoaded', function() {
-    window.metoffice.imageLightbox.init();
+    window.moprototype.imageLightbox.init();
 });

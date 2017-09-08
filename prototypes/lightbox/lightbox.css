@@ -24,21 +24,6 @@
 	justify-content:center;
 }
 
-.overlay-container iframe {
-	position: absolute;
-	margin: auto;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border: none;
-}
-
-.overlay-container iframe {
-	width: 100%;
-	height: 100%;
-}
-
 .overlay-container img {
 	max-width: 100%;
 	max-height: 100%;
@@ -64,4 +49,28 @@
 
 .overlay img {
 	vertical-align: middle;
+}
+
+.overlay .nav {
+	position: fixed;
+	cursor: pointer;
+	height: 100%;
+	width: 10%;
+	top: 5%;	/* to move clickable region lower than the close button */
+	z-index: 999999999;	/* neccessary to ensure the icons appear in front of the overlay */
+}
+
+.overlay .left {
+	background: url("../images/arrow-right.svg") no-repeat 50% 50%;
+	transform: rotate(180deg);
+	left: 0;
+}
+
+.overlay .right {
+	background: url("../images/arrow-right.svg") no-repeat 50% 50%;
+	right: 0;
+}
+
+.overlay .caption {
+	padding-top: 10px;
 }
