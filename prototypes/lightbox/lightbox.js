@@ -75,13 +75,13 @@ window.moprototype.imageLightbox = {
             var inlineImage = document.querySelector("img[data-lightbox-image-id='" + imageNumber + "']");
 
             // remove any existing image
-            lightbox.overlayElementContainer.innerHTML = "";
-            lightbox.overlayCaptionContainer.innerHTML = "";
+            lightbox.overlayLightboxContainer.innerHTML = "";
+            lightbox.overlayLightboxContainer.innerHTML = "";
             
             if(largeImageAnchor !== null) {
                 var enlargedImage = document.createElement("img");
                 enlargedImage.src = largeImageAnchor.getAttribute("href");
-                lightbox.overlayElementContainer.appendChild(enlargedImage);
+                lightbox.overlayLightboxContainer.appendChild(enlargedImage);
 
                 var captionContainer = document.createElement("div");
                 captionContainer.setAttribute("class", "caption");

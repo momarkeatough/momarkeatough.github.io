@@ -61,13 +61,13 @@
 }
 
 .overlay .left {
-	background: url("../images/arrow-right.svg") no-repeat 50% 50%;
+	background: url("/images/arrow-right.svg") no-repeat 50% 50%;
 	transform: rotate(180deg);
 	left: 0;
 }
 
 .overlay .right {
-	background: url("../images/arrow-right.svg") no-repeat 50% 50%;
+	background: url("/images/arrow-right.svg") no-repeat 50% 50%;
 	right: 0;
 }
 
